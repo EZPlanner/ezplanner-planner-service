@@ -1,6 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const bodyParser = require('body-parser');
+
+const addPlanRoutes = require('./routes/plan');
 
 class Server {
     constructor({ port }) {
@@ -14,12 +17,17 @@ class Server {
 
     async start(done) {
         const app = express();
-        app.use(morgan());
+        app.use(morgan('combined'));
         app.use(helmet());
+        app.use(bodyParser.urlencoded({ extended: true }));
+
+        addPlanRoutes(app);
+
         app.use((err, req, res, next) => {
-            throw new Error(`Something went wrong!, error: ${err}`);
+            console.error(err.stack);
             res.status(500).send('Something went wrong!');
         });
+
 
         this.server = app.listen(this.port, () => {
             done();

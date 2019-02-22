@@ -1,16 +1,14 @@
-const courseTitleMap = require('../data/course_title_map.json');
 const prereqMap = require('../data/prereq.json');
 const postreqMap = require('../data/postreq.json');
 
-const defaultPlanner = new Planner(courseTitleMap, prereqMap, postreqMap);
+let defaultPlanner;
 
 class Planner {
     static get instance() {
         return defaultPlanner;
     }
 
-    constructor(courseTitles, prereq, postreq) {
-        this.courseTitleMap = courseTitles;
+    constructor(prereq, postreq) {
         this.prereqMap = prereq;
         this.postreqMap = postreq;
     }
@@ -30,7 +28,7 @@ class Planner {
             let taken = 0;
             let required = 0;
 
-            for (item in items) {
+            for (const item of items) {
                 if (Array.isArray(item)) {
                     if (!check(item)) {
                         return false;
@@ -60,6 +58,8 @@ class Planner {
         return possibleCourses.filter(possibleCourse => check(this.prereqMap[possibleCourse]));
     }
 }
+
+defaultPlanner = new Planner(prereqMap, postreqMap);
 
 class PlanController {
     static getPlanForCourses(courses) {

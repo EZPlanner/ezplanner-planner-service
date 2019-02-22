@@ -1,17 +1,20 @@
-const express = require('express');
-const courseTitleMap = require('./data/course_title_map.json');
+const { EventEmitter } = require('events');
+const Server = require('./server');
 
-const app = express();
+console.log('--- Planner Service ---');
+console.log('Starting...');
 
-app.get('/course_title_map', (req, res) => {
-    res.status(200).send({
-        status: 'success',
-        data: courseTitleMap
-    });
+process.on('uncaughtException', err => {
+    console.error('Unhandled Exception', err);
 });
 
-const PORT = 5000;
+process.on('unhandledRejection', (err, promise) => {
+    console.error('Unhandled Rejection', err);
+});
 
-app.listen(PORT, () => {
-    console.info(`Server running on port ${PORT}`);
+const port = process.env.PORT || 5000;
+const server = new Server({ port });
+
+server.start(() => {
+    console.log(`Planner Service running on port ${port}`)
 })
