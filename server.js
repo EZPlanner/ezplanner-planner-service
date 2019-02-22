@@ -15,7 +15,7 @@ class Server {
         this.server = null;
     }
 
-    async start(done) {
+    start(done) {
         const app = express();
         app.use(morgan('combined'));
         app.use(helmet());
@@ -27,7 +27,6 @@ class Server {
             console.error(err.stack);
             res.status(500).send('Something went wrong!');
         });
-
 
         this.server = app.listen(this.port, () => {
             done();
