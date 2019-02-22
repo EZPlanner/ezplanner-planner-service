@@ -4,7 +4,6 @@ class UserPlanView {
     constructor(plan) {
         this.plan = plan;
 
-
         const courses = (this.plan || []).map(course => ({
             name: course,
             title: courseTitleMap[course] || 'N/A'
