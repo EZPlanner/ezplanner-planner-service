@@ -12,7 +12,6 @@ class Server {
         }
 
         this.port = port;
-        this.server = null;
     }
 
     start(done) {
@@ -28,7 +27,7 @@ class Server {
             res.status(500).send('Something went wrong!');
         });
 
-        this.server = app.listen(this.port, () => {
+        app.listen(this.port, () => {
             done();
         });
     }
