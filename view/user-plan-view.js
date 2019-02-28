@@ -11,8 +11,11 @@ class UserPlanView {
 
         this._apiResponse = {
             plan: {
-                size: courses.length,
-                courses
+                totalAvailableCourses: courses.length,
+                courses: {
+                    eligible: courses,
+                    free: []
+                }
             }
         };
     }
