@@ -1,4 +1,3 @@
-const { EventEmitter } = require('events');
 const Server = require('./server');
 
 console.log('--- Planner Service ---');
@@ -8,7 +7,7 @@ process.on('uncaughtException', err => {
     console.error('Unhandled Exception', err);
 });
 
-process.on('unhandledRejection', (err, promise) => {
+process.on('unhandledRejection', err => {
     console.error('Unhandled Rejection', err);
 });
 
@@ -17,4 +16,4 @@ const server = new Server({ port });
 
 server.start(() => {
     console.log(`Planner Service running on port ${port}`)
-})
+});
