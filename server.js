@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const addPlanRoutes = require('./routes/plan');
@@ -17,6 +18,7 @@ class Server {
     start(done) {
         const app = express();
         app.use(morgan('combined'));
+        app.use(cors());
         app.use(helmet());
         app.use(bodyParser.urlencoded({ extended: true }));
 
