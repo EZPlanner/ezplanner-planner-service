@@ -9,6 +9,8 @@ const freeCourses = Object.keys(prereqMap)
         title: courseTitleMap[course]
     }));
 
+const freeCoursesCount = freeCourses.length;
+
 class UserPlanView {
     constructor(plan) {
         this.plan = plan;
@@ -20,7 +22,7 @@ class UserPlanView {
 
         this._apiResponse = {
             plan: {
-                totalAvailableCourses: courses.length,
+                totalAvailableCourses: courses.length + freeCoursesCount,
                 courses: {
                     eligible: courses,
                     free: freeCourses
