@@ -1,4 +1,8 @@
 const courseTitleMap = require('../data/course_title_map.json');
+const prereqMap = require('../data/prereq.json');
+
+const isFreeCourse = x => Array.isArray(x) ? x.length === 0 : !x;
+const freeCourses = Object.keys(prereqMap).filter(key => isFreeCourse(prereqMap[key]));
 
 class UserPlanView {
     constructor(plan) {
@@ -14,7 +18,7 @@ class UserPlanView {
                 totalAvailableCourses: courses.length,
                 courses: {
                     eligible: courses,
-                    free: []
+                    free: freeCourses
                 }
             }
         };
